@@ -5,8 +5,8 @@ import random
 import sys
 
 
-TODO_PATH = 'todo_temp'
-CURRENT_TASK_PATH = 'task_temp'
+TODO_PATH = 'text_files/todo_temp'
+CURRENT_TASK_PATH = 'text_files/task_temp'
 
 COMMENT_MARKER = '#'
 
