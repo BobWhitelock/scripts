@@ -6,7 +6,7 @@ import sys
 
 # TODO: Add unit tests; look at file handling
 
-TEST = True
+TEST = False
 
 TODO_PATH = 'text_files/todo_test' if TEST else 'text_files/todo'
 CURRENT_TASK_PATH = 'text_files/current_task_test' if TEST else 'text_files/current_task'
@@ -17,7 +17,10 @@ COMMENT_MARKER = '#'
 
 def main():
     if len(sys.argv) > 1 and sys.argv[1] == 'done':
-        os.remove(CURRENT_TASK_PATH)
+        try:
+            os.remove(CURRENT_TASK_PATH)
+        except FileNotFoundError:
+            print('No task currently chosen.')
     else:
         current_task = read_current_task()
         if current_task == '':
@@ -53,7 +56,6 @@ def delete_chosen_task(task):
         with open(TEMP_PATH, 'w') as outputfile:
             for line in inputfile:
                 if line.strip() != task:
-                    print(line, task)
                     outputfile.write(line)
 
     os.remove(TODO_PATH)
