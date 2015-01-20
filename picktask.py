@@ -4,7 +4,10 @@ import os
 import random
 import sys
 
-# TODO: Add unit tests; look at file handling
+# TODO:
+# Add unit tests
+# look at file handling
+# add picking from man pages + other sources?
 
 TEST = False
 
@@ -19,6 +22,7 @@ def main():
     if len(sys.argv) > 1 and sys.argv[1] == 'done':
         try:
             os.remove(CURRENT_TASK_PATH)
+            print('Current task complete.')
         except FileNotFoundError:
             print('No task currently chosen.')
     else:
