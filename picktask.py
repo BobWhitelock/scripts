@@ -9,31 +9,36 @@ import sys
 # look at file handling
 # add picking from man pages + other sources?
 
-TEST = False
+TEST = True
 
-TODO_PATH = 'text_files/todo_test' if TEST else 'text_files/todo'
-CURRENT_TASK_PATH = 'text_files/current_task_test' if TEST else 'text_files/current_task'
-TEMP_PATH = 'text_files/temp'
+TODO_PATH = '/home/bob/projects/scripts/text_files/todo_test' if TEST else '/home/bob/projects/scripts/text_files/todo'
+CURRENT_TASK_PATH = '/home/bob/projects/scripts/text_files/current_task_test' if TEST else '/home/bob/projects/scripts/text_files/current_task'
+TEMP_PATH = '/home/bob/projects/scripts/text_files/temp'
 
 COMMENT_MARKER = '#'
 
 
 def main():
     if len(sys.argv) > 1 and sys.argv[1] == 'done':
-        try:
-            os.remove(CURRENT_TASK_PATH)
-            print('Current task complete.')
-        except FileNotFoundError:
-            print('No task currently chosen.')
+        finish_current_task()
     else:
         current_task = read_current_task()
         if current_task == '':
             current_task = pick_new_task()
-
-        if current_task != '':
-            print('Chosen task:', current_task)
+            if current_task != '':
+                print('Chosen task:', current_task)
+            else:
+                print('No tasks available, add some more.')
         else:
-            print('No tasks available, add some more.')
+            print('Current task:', current_task)
+
+
+def finish_current_task():
+    try:
+        os.remove(CURRENT_TASK_PATH)
+        print('Current task complete.')
+    except FileNotFoundError:
+        print('No task currently chosen.')
 
 
 def read_current_task():
